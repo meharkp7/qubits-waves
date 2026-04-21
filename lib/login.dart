@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'otp.dart';
 import 'email_login.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:phone_form_field/phone_form_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -90,23 +90,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
-                  child: InternationalPhoneNumberInput(
-                    onInputChanged: (PhoneNumber number) {
-                      setState(() {
-                        phoneNumber = number.phoneNumber!;
-                      });
-                    },
-                    selectorConfig: const SelectorConfig(
-                      selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                    ),
-                    initialValue: PhoneNumber(isoCode: 'IN', dialCode: '+91'),
-                    textStyle: const TextStyle(fontSize: 18, fontFamily: "Inira"),
-                    inputDecoration: const InputDecoration(
+                  child: PhoneFormField(
+                    initialValue: PhoneNumber(isoCode: IsoCode.IN, nsn: ''),
+                    decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: "Mobile number",
                       contentPadding: EdgeInsets.symmetric(
                           vertical: 16, horizontal: 10),
                     ),
+                    style: const TextStyle(fontSize: 18, fontFamily: "Inira"),
+                    onChanged: (phone) {
+                      setState(() {
+                        phoneNumber = phone?.international ?? "";
+                      });
+                    },
                   ),
                 ),
 
